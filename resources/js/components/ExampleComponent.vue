@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        Este es un holis.
+                        Este es un holis para git.
                     </div>
                 </div>
             </div>
