@@ -37535,7 +37535,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _vm._v(
-                "\n                    Este es un holis.\n                "
+                "\n                    Este es un holis para git.\n                "
               ),
             ]),
           ]),
