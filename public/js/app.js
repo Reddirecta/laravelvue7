@@ -37706,7 +37706,7 @@ var render = function () {
     _vm._v(" "),
     _c("hr", { staticClass: "mt-3" }),
     _vm._v(" "),
-    _c("h3", [_vm._v("Listado de Notas")]),
+    _c("h3", [_vm._v("Listado de Notas +")]),
     _vm._v(" "),
     _c(
       "ul",
@@ -50184,8 +50184,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\laravel7\laravelvue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\laravel7\laravelvue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laravelvue7\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravelvue7\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

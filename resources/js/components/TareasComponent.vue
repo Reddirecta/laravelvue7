@@ -9,7 +9,7 @@
             <button class="btn btn-primary" type="submit">Agregar</button>
         </form>
         <hr class = "mt-3">
-        <h3>Listado de Notas</h3>
+        <h3>Listado de Notas +</h3>
         <ul class="list-group my2">
             <li class="list-group-item"
             v-for="(item, index) in notas" :key="index">
