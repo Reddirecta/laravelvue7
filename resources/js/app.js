@@ -7,6 +7,15 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+//support vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+import storeData from "./store/index"
+
+const store = new Vuex.Store(
+   storeData
+)
 import Vuetify from "../plugins/vuetify";
 import '@mdi/font/css/materialdesignicons.css';
 //import 'material-design-icons-iconfont/dist/material-design-icons.css';
@@ -33,4 +42,5 @@ Vue.component('tareas', require('./components/TareasComponent.vue').default);
 const app = new Vue({
     vuetify: Vuetify,
     el: '#app',
+    store, //vuex
 });

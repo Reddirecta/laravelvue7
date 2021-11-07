@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        Este es un holis para git.
+                        Este es un holis para git. {{$store.state.numero}}
                     </div>
                 </div>
             </div>

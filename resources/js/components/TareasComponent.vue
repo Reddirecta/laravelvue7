@@ -24,7 +24,7 @@
         <v-subheader>Subheader</v-subheader>
       </form>
       <hr class="mt-3" />
-      <h3>Listado de Notas +</h3>
+      <h3>Listado de Notas + {{numero}}</h3>
       <ul class="list-group my2">
         <li class="list-group-item" v-for="(item, index) in notas" :key="index">
           <span class="badge badge-primary float-right">
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -105,5 +106,8 @@ export default {
       });
     },
   },
+  computed:{
+    ...mapState(['numero'])
+  }
 };
 </script>
