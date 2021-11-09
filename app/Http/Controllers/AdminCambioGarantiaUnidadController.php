@@ -20,8 +20,8 @@
 			$this->button_add = false;
 			$this->button_edit = true;
 			$this->button_delete = true;
-			$this->button_detail = true;
-			$this->button_show = true;
+			$this->button_detail = false;
+			$this->button_show = false;
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
@@ -54,7 +54,7 @@
 			//$this->form[] = ['label'=>'Sucursal','name'=>'suc_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-5','datatable'=>'con_aa_sucursales,sucursal'];
 			//$this->form[] = ['label'=>'Usuario','name'=>'usuario_id','type'=>'select2','validation'=>'required|min:1|max:255','width'=>'col-sm-5','datatable'=>'con_aa_usuarios,usuario'];
 			//$this->form[] = ['label'=>'Fecha','name'=>'fecha','type'=>'date','validation'=>'required|date','width'=>'col-sm-5'];
-			//$this->form[] = ['label'=>'Comentarios','name'=>'comentarios','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-5'];
+			//$this->form[] = ['label'=>'Comentarios','name'=>'comentarios','type'=>'textarea','validation'=>'required|min:1|max:255','width'=>'col-sm-5'];
 			//$this->form[] = ['label'=>'Status','name'=>'status','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-5'];
 			# OLD END FORM
 
