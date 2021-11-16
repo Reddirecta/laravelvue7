@@ -22,3 +22,4 @@ Auth::routes();
 Route::resource('/notas', 'NotaController')->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/getdatos', 'OrdenServicio@getdatostablas')->name('getdatostablas','getdatos');
