@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/notas', 'NotaController')->middleware('auth');
-
+Route::resource('/os', 'OrdenServicio');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/getdatos', 'OrdenServicio@getdatostablas')->name('getdatostablas','getdatos');
+Route::get('/getmecanicos', 'OrdenServicio@getMecanicos')->name('getMecanicos','getmecanicos');

@@ -69,7 +69,10 @@ class OrdenServicio extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('motochec_taller.moto_aa_servicios')
+        ->where('id',$id)
+        ->update(['trabajo' => $request->trabajo,'mecanico_id' => $request->corto]);
+        return $request->corto;
     }
 
     /**
@@ -87,26 +90,36 @@ class OrdenServicio extends Controller
         $request->pagina--;
         $offset = $request->pagina*$request->registrosporpagina;
         $request->buscar = (trim($request->buscar) == "" || trim($request->buscar) == "null") ? "" : trim($request->buscar);
-        $total = DB::table('taller.moto_aa_servicios')
-        ->select('taller.moto_aa_servicios.id','taller.moto_aa_servicios.fecha','taller.moto_aa_servicios.folio','taller.moto_aa_vehiculos.modelo','taller.moto_aa_vehiculos.serie','taller.moto_aa_servicios.trabajo','taller.moto_aa_mecanicos.corto')
-        ->leftjoin('taller.moto_aa_vehiculos','taller.moto_aa_servicios.vid','=','taller.moto_aa_vehiculos.id')
-        ->leftjoin('taller.moto_aa_mecanicos','taller.moto_aa_servicios.mecanico_id','=','taller.moto_aa_mecanicos.id')
-        ->where('taller.moto_aa_servicios.folio','LIKE',$request->buscar.'%')
-        ->orWhere('taller.moto_aa_vehiculos.modelo','LIKE',$request->buscar.'%')
-        ->orWhere('taller.moto_aa_vehiculos.serie','LIKE',$request->buscar.'%')
+        $total = DB::table('motochec_taller.moto_aa_servicios')
+        ->select('motochec_taller.moto_aa_servicios.id','motochec_taller.moto_aa_servicios.fecha','motochec_taller.moto_aa_servicios.folio','motochec_taller.moto_aa_vehiculos.modelo','motochec_taller.moto_aa_vehiculos.serie','motochec_taller.moto_aa_servicios.trabajo','motochec_taller.moto_aa_mecanicos.corto')
+        ->leftjoin('motochec_taller.moto_aa_vehiculos','motochec_taller.moto_aa_servicios.vid','=','motochec_taller.moto_aa_vehiculos.id')
+        ->leftjoin('motochec_taller.moto_aa_mecanicos','motochec_taller.moto_aa_servicios.mecanico_id','=','motochec_taller.moto_aa_mecanicos.id')
+        ->where('motochec_taller.moto_aa_servicios.folio','LIKE',$request->buscar.'%')
+        ->orWhere('motochec_taller.moto_aa_vehiculos.modelo','LIKE',$request->buscar.'%')
+        ->orWhere('motochec_taller.moto_aa_vehiculos.serie','LIKE',$request->buscar.'%')
         ->count();
-        $datos = DB::table('taller.moto_aa_servicios')
-        ->select('taller.moto_aa_servicios.id','taller.moto_aa_servicios.fecha','taller.moto_aa_servicios.folio','taller.moto_aa_vehiculos.modelo','taller.moto_aa_vehiculos.serie','taller.moto_aa_servicios.trabajo','taller.moto_aa_mecanicos.corto')
-        ->leftjoin('taller.moto_aa_vehiculos','taller.moto_aa_servicios.vid','=','taller.moto_aa_vehiculos.id')
-        ->leftjoin('taller.moto_aa_mecanicos','taller.moto_aa_servicios.mecanico_id','=','taller.moto_aa_mecanicos.id')
-        ->where('taller.moto_aa_servicios.folio','LIKE',$request->buscar.'%')
-        ->orWhere('taller.moto_aa_vehiculos.modelo','LIKE',$request->buscar.'%')
-        ->orWhere('taller.moto_aa_vehiculos.serie','LIKE',$request->buscar.'%')
+        $datos = DB::table('motochec_taller.moto_aa_servicios')
+        ->select('motochec_taller.moto_aa_servicios.id','motochec_taller.moto_aa_servicios.fecha','motochec_taller.moto_aa_servicios.folio','motochec_taller.moto_aa_vehiculos.modelo','motochec_taller.moto_aa_vehiculos.serie','motochec_taller.moto_aa_servicios.trabajo','motochec_taller.moto_aa_mecanicos.corto')
+        ->leftjoin('motochec_taller.moto_aa_vehiculos','motochec_taller.moto_aa_servicios.vid','=','motochec_taller.moto_aa_vehiculos.id')
+        ->leftjoin('motochec_taller.moto_aa_mecanicos','motochec_taller.moto_aa_servicios.mecanico_id','=','motochec_taller.moto_aa_mecanicos.id')
+        ->where('motochec_taller.moto_aa_servicios.folio','LIKE',$request->buscar.'%')
+        ->orWhere('motochec_taller.moto_aa_vehiculos.modelo','LIKE',$request->buscar.'%')
+        ->orWhere('motochec_taller.moto_aa_vehiculos.serie','LIKE',$request->buscar.'%')
         ->offset($offset)->limit($request->registrosporpagina)
         ->get();
         $salida = array();
         $salida['datos'] = $datos;
         $salida['totales'] = $total;
+        echo json_encode($salida);
+    }
+
+    public function getMecanicos(){
+        $datos = DB::table('motochec_taller.moto_aa_mecanicos')
+        ->select('id','corto')
+        ->whereNotNull('corto')
+        ->orderBy('corto')
+        ->get();
+        $salida = $datos->toArray();
         echo json_encode($salida);
     }
 }

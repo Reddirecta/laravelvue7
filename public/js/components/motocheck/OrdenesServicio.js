@@ -108,7 +108,7 @@ Vue.component ('ordenesservicio',{
                   md="6"
                 >
                   <v-text-field
-                    v-model="editedItem.unidad"
+                    v-model="editedItem.modelo"
                     label="Unidad"
                   ></v-text-field>
                 </v-col>
@@ -117,10 +117,13 @@ Vue.component ('ordenesservicio',{
                   sm="6"
                   md="6"
                 >
-                  <v-text-field
-                    v-model="editedItem.mecanico"
-                    label="Mecánico"
-                  ></v-text-field>
+                <v-select
+                v-model="editedItem.corto"
+                :items="mecanicos"
+                label="Mecánico"
+                item-text="corto"
+                :return-object=true           
+                ></v-select>
                 </v-col>
               </v-row>
               <v-row>
@@ -173,6 +176,8 @@ Vue.component ('ordenesservicio',{
 `,
     data(){
 		return{
+            sel: null,
+            mecanicos: [],
             dialog: false,
             dialogDelete: false,
             buscar:null,
@@ -201,6 +206,7 @@ Vue.component ('ordenesservicio',{
               { text: 'Mecánico', value: 'corto', sortable: false, },
               { text: 'Acciones', value: 'actions', sortable: false },
             ],
+            editedIndex: -1,
             editedItem: {
               unidad: '',
               mecanico: '',
@@ -238,9 +244,21 @@ Vue.component ('ordenesservicio',{
           this.editedIndex = -1
         })
       },
-      save () {
+      async save () {
         if (this.editedIndex > -1) {
+          if(this.editedItem.corto.id != ''){
+            this.sel = this.editedItem.corto.id
+            this.editedItem.corto = this.editedItem.corto.corto
+          }
+          else{
+            
+          }
           Object.assign(this.registros[this.editedIndex], this.editedItem)
+          const params = {modelo: this.editedItem.modelo, corto: this.sel, trabajo: this.editedItem.trabajo}
+          await axios.put(`/os/${this.editedItem.id}`,params)
+          .then(res => {
+            console.log(res)
+          })
         } else {
           this.registros.push(this.editedItem)
         }
@@ -271,9 +289,19 @@ Vue.component ('ordenesservicio',{
             const resultado = this.registros.find( registro => registro.id === id );
             this.mensaje = resultado.mensaje
             this.elmensaje = true
+          },
+          async getMecanicos(){
+            await axios.get('/getmecanicos')
+            .then(({data})=>{
+              this.mecanicos = data
+              console.log(data)
+            })
+            .catch((error) => (console.log(error)))
+            .then(() => (console.log('mecanicos ok')))
           }
     },
     mounted(){
+        this.getMecanicos()
         this.getOs()
         .then(data => {
           this.registros = data.items
