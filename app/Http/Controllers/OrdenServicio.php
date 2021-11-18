@@ -106,6 +106,7 @@ class OrdenServicio extends Controller
         ->orWhere('motochec_taller.moto_aa_vehiculos.modelo','LIKE',$request->buscar.'%')
         ->orWhere('motochec_taller.moto_aa_vehiculos.serie','LIKE',$request->buscar.'%')
         ->offset($offset)->limit($request->registrosporpagina)
+        ->orderBy('motochec_taller.moto_aa_servicios.folio', 'DESC')
         ->get();
         $salida = array();
         $salida['datos'] = $datos;
