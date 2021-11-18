@@ -111,7 +111,7 @@ class OrdenServicio extends Controller
         $salida = array();
         $salida['datos'] = $datos;
         $salida['totales'] = $total;
-        echo json_encode($salida);
+        echo json_encode($salida, JSON_UNESCAPED_UNICODE);
     }
 
     public function getMecanicos(){
