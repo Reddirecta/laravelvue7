@@ -122,7 +122,7 @@ Vue.component ('ordenesservicio',{
                 :items="mecanicos"
                 label="Mecánico"
                 item-text="corto"
-                :return-object=true           
+                @change="actualizaMid()"       
                 ></v-select>
                 </v-col>
               </v-row>
@@ -176,7 +176,6 @@ Vue.component ('ordenesservicio',{
 `,
     data(){
 		return{
-            sel: null,
             mecanicos: [],
             dialog: false,
             dialogDelete: false,
@@ -215,6 +214,13 @@ Vue.component ('ordenesservicio',{
         }
     },
     methods:{
+      //Se requiere para mandar el id del mecanico
+      actualizaMid(){
+        const elemento = this.mecanicos.find(element => element.corto == this.editedItem.corto)
+        this.editedItem.mid = elemento.id
+        console.log(elemento)
+        return
+      },
       async editItem (item) {
         this.editedIndex = this.registros.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -244,17 +250,11 @@ Vue.component ('ordenesservicio',{
           this.editedIndex = -1
         })
       },
+        //Actualizar datos, tambien sirve para guardar, aunque no esta implementado aquí
       async save () {
         if (this.editedIndex > -1) {
-          if(this.editedItem.corto.id != ''){
-            this.sel = this.editedItem.corto.id
-            this.editedItem.corto = this.editedItem.corto.corto
-          }
-          else{
-            
-          }
           Object.assign(this.registros[this.editedIndex], this.editedItem)
-          const params = {modelo: this.editedItem.modelo, corto: this.sel, trabajo: this.editedItem.trabajo}
+          const params = {modelo: this.editedItem.modelo, corto: this.editedItem.corto, trabajo: this.editedItem.trabajo, mid: this.editedItem.mid}
           await axios.put(`/os/${this.editedItem.id}`,params)
           .then(res => {
             console.log(res)
@@ -264,6 +264,7 @@ Vue.component ('ordenesservicio',{
         }
         this.close()
       },
+        //Obtener Ordenes de Servicio
         async getOs () {
             this.loading = true
               const { sortBy, sortDesc, page, itemsPerPage } = this.options

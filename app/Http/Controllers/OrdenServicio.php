@@ -71,8 +71,8 @@ class OrdenServicio extends Controller
     {
         DB::table('motochec_taller.moto_aa_servicios')
         ->where('id',$id)
-        ->update(['trabajo' => $request->trabajo,'mecanico_id' => $request->corto]);
-        return $request->corto;
+        ->update(['trabajo' => $request->trabajo,'mecanico_id' => $request->mid]);
+        return $request->mid;
     }
 
     /**
@@ -99,7 +99,7 @@ class OrdenServicio extends Controller
         ->orWhere('motochec_taller.moto_aa_vehiculos.serie','LIKE',$request->buscar.'%')
         ->count();
         $datos = DB::table('motochec_taller.moto_aa_servicios')
-        ->select('motochec_taller.moto_aa_servicios.id','motochec_taller.moto_aa_servicios.fecha','motochec_taller.moto_aa_servicios.folio','motochec_taller.moto_aa_vehiculos.modelo','motochec_taller.moto_aa_vehiculos.serie','motochec_taller.moto_aa_servicios.trabajo','motochec_taller.moto_aa_mecanicos.corto')
+        ->select('motochec_taller.moto_aa_servicios.id','motochec_taller.moto_aa_servicios.fecha','motochec_taller.moto_aa_servicios.folio','motochec_taller.moto_aa_vehiculos.modelo','motochec_taller.moto_aa_vehiculos.serie','motochec_taller.moto_aa_servicios.trabajo','motochec_taller.moto_aa_mecanicos.corto','motochec_taller.moto_aa_mecanicos.id AS mid')
         ->leftjoin('motochec_taller.moto_aa_vehiculos','motochec_taller.moto_aa_servicios.vid','=','motochec_taller.moto_aa_vehiculos.id')
         ->leftjoin('motochec_taller.moto_aa_mecanicos','motochec_taller.moto_aa_servicios.mecanico_id','=','motochec_taller.moto_aa_mecanicos.id')
         ->where('motochec_taller.moto_aa_servicios.folio','LIKE',$request->buscar.'%')
